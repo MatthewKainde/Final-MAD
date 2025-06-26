@@ -9,9 +9,11 @@ import {
   StatusBar,
 } from 'react-native';
 
+// Impor komponen dari barrel kategori mereka
 import { BottomBar, FoodCard } from '../../components/molecules';
 import { Gap } from '../../components/atoms';
 
+// Impor ikon dari barrel icons
 import {
   IconBack,
   IconHome,
@@ -21,20 +23,20 @@ import {
 } from '../../assets/icons';
 
 import {
-  Burger,
-  Salad,
-  Spaghetti,
-  FriedRice,
+  OrangeJuice,
+  Punch,
+  Cookies, 
+  GingerAle,
 } from '../../assets/images';
 
-const foodData = [
-  { id: '1', name: 'Double Cheeseburger', price: 'Rp 15.000', image: Burger },
-  { id: '2', name: 'Salad', price: 'Rp 15.000', image: Salad },
-  { id: '3', name: 'Spaghetti', price: 'Rp 15.000', image: Spaghetti },
-  { id: '4', name: 'Fried Rice', price: 'Rp 15.000', image: FriedRice },
+const drinkData = [
+  { id: '1', name: 'Orange Juice', price: 'Rp 7.000', image: OrangeJuice },
+  { id: '2', name: 'Punch', price: 'Rp 8.000', image: Punch },
+  { id: '3', name: 'Cookies & Cream Shake', price: 'Rp 10.000', image: Cookies }, // Pastikan 'Cookies' di sini merujuk ke Cookies.png
+  { id: '4', name: 'Ginger Ale', price: 'Rp 8.000', image: GingerAle },
 ];
 
-const FoodsMenu = () => {
+const DrinkMenu = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor="#FFF8F0" barStyle="dark-content" />
@@ -43,14 +45,14 @@ const FoodsMenu = () => {
           <TouchableOpacity>
             <IconBack width={24} height={24} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Foods</Text>
+          <Text style={styles.headerTitle}>Drinks</Text>
         </View>
 
         <View style={styles.listWrapper}>
           <FlatList
-            data={foodData}
+            data={drinkData} 
             renderItem={({ item }) => (
-              <FoodCard
+              <FoodCard 
                 name={item.name}
                 price={item.price}
                 image={item.image}
@@ -77,7 +79,7 @@ const FoodsMenu = () => {
   );
 };
 
-export default FoodsMenu;
+export default DrinkMenu;
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     marginTop: 48,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingTop: 24, 
+    paddingTop: 24,
     paddingHorizontal: 12,
   },
   listContainer: {
