@@ -9,11 +9,9 @@ import {
   StatusBar,
 } from 'react-native';
 
-// Impor komponen dari barrel kategori mereka
 import { BottomBar, FoodCard } from '../../components/molecules';
 import { Gap } from '../../components/atoms';
 
-// Impor ikon dari barrel icons
 import {
   IconBack,
   IconHome,
@@ -22,21 +20,18 @@ import {
   IconUser,
 } from '../../assets/icons';
 
-// Impor gambar pastry dari barrel images
-// Pastikan nama impor sesuai dengan yang diekspor di src/assets/images/index.ts
 import {
   Croissant,
   LemonTart,
   Eclair,
-  Lemon, // BARU: Impor gambar Lemon
+  Lemon, 
 } from '../../assets/images';
 
-// Data pastry sesuai urutan di Figma
 const pastryData = [
   { id: '1', name: 'Croissant', price: 'Rp 12.000', image: Croissant },
   { id: '2', name: 'Lemon Tart', price: 'Rp 18.000', image: LemonTart },
   { id: '3', name: 'Eclair', price: 'Rp 15.000', image: Eclair },
-  { id: '4', name: 'Lemon Cake', price: 'Rp 16.000', image: Lemon }, // BARU: Tambahkan menu Lemon Cake
+  { id: '4', name: 'Lemon Cake', price: 'Rp 16.000', image: Lemon }, 
 ];
 
 const PastriesMenu = () => {
@@ -46,18 +41,16 @@ const PastriesMenu = () => {
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity>
-            {/* Menggunakan IconBack dari assets/icons */}
             <IconBack width={24} height={24} />
           </TouchableOpacity>
-          {/* Judul header diubah menjadi "Pastries" */}
           <Text style={styles.headerTitle}>Pastries</Text>
         </View>
 
         <View style={styles.listWrapper}>
           <FlatList
-            data={pastryData} // Menggunakan data pastry
+            data={pastryData}
             renderItem={({ item }) => (
-              <FoodCard // Menggunakan FoodCard karena desainnya sama
+              <FoodCard 
                 name={item.name}
                 price={item.price}
                 image={item.image}

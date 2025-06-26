@@ -1,4 +1,4 @@
-import BottomBar from './BottomBar'; // Mengacu pada src/components/molecules/BottomBar/index.tsx
-import FoodCard from './FoodCard'; // Mengacu pada src/components/molecules/FoodCard/index.tsx
+import BottomBar from './BottomBar'; 
+import FoodCard from './FoodCard'; 
 
 export { BottomBar, FoodCard };

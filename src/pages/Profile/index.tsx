@@ -1,0 +1,114 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+} from 'react-native';
+
+import { Gap } from '../../components/atoms';
+import { IconBack } from '../../assets/icons';
+import { ProfileImage } from '../../assets/images';
+
+const Profile = () => {
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity>
+            <IconBack width={24} height={24} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Your Account</Text>
+        </View>
+        <Gap height={44} />
+        <View style={styles.content}>
+          <View style={styles.profileContainer}>
+            <Image source={ProfileImage} style={styles.avatar} />
+            <Gap height={16} />
+            <Text style={styles.name}>User</Text>
+          </View>
+          <Gap height={37} />
+          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <Text style={styles.buttonText}>Order History</Text>
+          </TouchableOpacity>
+          <Gap height={37} />
+          <TouchableOpacity
+            style={[styles.button, styles.logoutButton]}
+            activeOpacity={0.8}>
+            <Text style={styles.buttonText}>Log Out</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default Profile;
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 24,
+    paddingBottom: 12,
+    paddingHorizontal: 24,
+    backgroundColor: '#FFFFFF',
+  },
+  headerTitle: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 22,
+    color: '#020202',
+    marginLeft: 16,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 24,
+    alignItems: 'center',
+  },
+  profileContainer: {
+    alignItems: 'center',
+    marginTop: 24,
+    marginBottom: 40,
+  },
+  avatar: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+  name: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 18,
+    color: '#020202',
+    marginTop: 16,
+  },
+
+  button: {
+    height: 61,
+    width: '90%', 
+    borderRadius: 30.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#9D7B6F',
+  },
+  logoutButton: {
+    backgroundColor: '#D9534F',
+  },
+  buttonText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
+});

@@ -9,11 +9,9 @@ import {
   StatusBar,
 } from 'react-native';
 
-// Impor komponen dari barrel kategori mereka
 import { BottomBar, FoodCard } from '../../components/molecules';
 import { Gap } from '../../components/atoms';
 
-// Impor ikon dari barrel icons
 import {
   IconBack,
   IconHome,
@@ -33,7 +31,7 @@ import {
 const drinkData = [
   { id: '1', name: 'Orange Juice', price: 'Rp 7.000', image: OrangeJuice },
   { id: '2', name: 'Punch', price: 'Rp 8.000', image: Punch },
-  { id: '3', name: 'Cookies & Cream Shake', price: 'Rp 10.000', image: Cookies }, // Pastikan 'Cookies' di sini merujuk ke Cookies.png
+  { id: '3', name: 'Cookies & Cream Shake', price: 'Rp 10.000', image: Cookies }, 
   { id: '4', name: 'Ginger Ale', price: 'Rp 8.000', image: GingerAle },
 ];
 

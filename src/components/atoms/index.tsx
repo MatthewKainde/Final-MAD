@@ -1,4 +1,4 @@
-import Gap from './Gap'; // Mengacu pada src/components/atoms/Gap/index.tsx
-import MiniButton from './MiniButton'; // Mengacu pada src/components/atoms/MiniButton/index.tsx
+import Gap from './Gap'; 
+import MiniButton from './MiniButton';
 
 export { Gap, MiniButton };
