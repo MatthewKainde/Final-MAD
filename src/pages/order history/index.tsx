@@ -19,8 +19,8 @@ import IconMenu from '../../assets/historybutton.svg';
 import IconUser from '../../assets/profilebutton.svg';
 import IconBack from '../../assets/arrow-back.svg';
 
-import Cookies from '../../assets/images/Cookies.png';
-import LemonMeringue from '../../assets/images/pastries.png'; // Gunakan sesuai gambar aslinya
+import Cookies from '../../assets/images/CookiesCream.png';
+import LemonMeringue from '../../assets/images/LemonMerigue.png'; // Gunakan sesuai gambar aslinya
 
 const orderHistory = [
   {
@@ -41,6 +41,14 @@ const orderHistory = [
   },
   {
     id: '3',
+    date: '23 JAN, 18:30',
+    items: '01 Items',
+    name: 'Cookies & Cream Shake',
+    price: 'Rp 10.000',
+    image: Cookies,
+  },
+  {
+    id: '4',
     date: '23 JAN, 18:30',
     items: '01 Items',
     name: 'Cookies & Cream Shake',
@@ -109,7 +117,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#986D5A',
   },
   header: {
     flexDirection: 'row',
@@ -129,7 +136,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   listContent: {
-    backgroundColor: '#FFF2E9',
+    
     padding: 16,
     paddingBottom: 100,
   },
