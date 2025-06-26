@@ -13,3 +13,5 @@ export const LemonTart = require('./LemonTart.png');
 export const Eclair = require('./Eclair.png');
 export const Lemon = require('./Lemon.png');
 export const ProfileImage = require('./Profile.png'); // Tambahkan baris ini
+export const NullPhoto = require('./null-photo.png');
+export const wBurger = require('./wburger.png'); // Menggunakan gambar baru yang Anda unggah
