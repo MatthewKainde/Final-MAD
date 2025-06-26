@@ -9,11 +9,9 @@ import {
   StatusBar,
 } from 'react-native';
 
-// Impor komponen dari barrel kategori mereka
 import { BottomBar, FoodCard } from '../../components/molecules';
 import { Gap } from '../../components/atoms';
 
-// Impor ikon dari barrel icons
 import {
   IconBack,
   IconHome,
@@ -22,22 +20,19 @@ import {
   IconUser,
 } from '../../assets/icons';
 
-
 import {
-  OrangeJuice,
-  Punch,
-  Cookies, 
-  GingerAle,
+  Croissant,   
+  LemonTart,  
+  Eclair,      
 } from '../../assets/images';
 
-const drinkData = [
-  { id: '1', name: 'Orange Juice', price: 'Rp 7.000', image: OrangeJuice },
-  { id: '2', name: 'Punch', price: 'Rp 8.000', image: Punch },
-  { id: '3', name: 'Cookies & Cream Shake', price: 'Rp 10.000', image: Cookies }, // Pastikan 'Cookies' di sini merujuk ke Cookies.png
-  { id: '4', name: 'Ginger Ale', price: 'Rp 8.000', image: GingerAle },
+const pastryData = [
+  { id: '1', name: 'Croissant', price: 'Rp 12.000', image: Croissant },
+  { id: '2', name: 'Lemon Tart', price: 'Rp 18.000', image: LemonTart },
+  { id: '3', name: 'Eclair', price: 'Rp 15.000', image: Eclair },
 ];
 
-const DrinkMenu = () => {
+const PastriesMenu = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor="#FFF8F0" barStyle="dark-content" />
@@ -46,12 +41,12 @@ const DrinkMenu = () => {
           <TouchableOpacity>
             <IconBack width={24} height={24} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Drinks</Text>
+          <Text style={styles.headerTitle}>Pastries</Text>
         </View>
 
         <View style={styles.listWrapper}>
           <FlatList
-            data={drinkData} 
+            data={pastryData} 
             renderItem={({ item }) => (
               <FoodCard 
                 name={item.name}
@@ -80,7 +75,7 @@ const DrinkMenu = () => {
   );
 };
 
-export default DrinkMenu;
+export default PastriesMenu;
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
     marginTop: 48,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingTop: 24,
+    paddingTop: 24, 
     paddingHorizontal: 12,
   },
   listContainer: {
