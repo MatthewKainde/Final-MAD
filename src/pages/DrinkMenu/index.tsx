@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { BottomBar, FoodCard } from '../../components/molecules';
 import { Gap } from '../../components/atoms';
@@ -35,13 +36,25 @@ const drinkData = [
   { id: '4', name: 'Ginger Ale', price: 'Rp 8.000', image: GingerAle },
 ];
 
-const DrinkMenu = () => {
+type RootStackParamList = {
+  Home: undefined;
+  FoodsMenu: undefined;
+  DrinkMenu: undefined;
+  PastriesMenu: undefined;
+  OrderHistory: undefined;
+  Profile: undefined;
+  Confirmation: undefined;
+};
+
+type DrinkMenuProps = NativeStackScreenProps<RootStackParamList, 'DrinkMenu'>;
+
+const DrinkMenu: React.FC<DrinkMenuProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor="#FFF8F0" barStyle="dark-content" />
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <IconBack width={24} height={24} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Drinks</Text>
@@ -49,13 +62,14 @@ const DrinkMenu = () => {
 
         <View style={styles.listWrapper}>
           <FlatList
-            data={drinkData} 
+            data={drinkData}
             renderItem={({ item }) => (
-              <FoodCard 
+              <FoodCard
                 name={item.name}
                 price={item.price}
-                image={item.image}
-                onPressAdd={() => console.log('Add', item.name)}
+                image={<item.image width={75} height={75} />}
+                onPressAdd={() => navigation.navigate('Confirmation')}
+                onImagePress={() => navigation.navigate('Confirmation')}
               />
             )}
             keyExtractor={item => item.id}
@@ -67,10 +81,10 @@ const DrinkMenu = () => {
         
         <BottomBar
           buttons={[
-            { icon: <IconHome width={32} height={32} />, onPress: () => {} },
+            { icon: <IconHome width={32} height={32} />, onPress: () => navigation.navigate('Home') },
             { icon: <IconBell width={32} height={32} />, onPress: () => {} },
-            { icon: <IconMenu width={32} height={32} />, onPress: () => {} },
-            { icon: <IconUser width={32} height={32} />, onPress: () => {} },
+            { icon: <IconMenu width={32} height={32} />, onPress: () => navigation.navigate('OrderHistory') },
+            { icon: <IconUser width={32} height={32} />, onPress: () => navigation.navigate('Profile') },
           ]}
         />
       </View>
@@ -122,5 +136,19 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingBottom: 100,
+  },
+  card: {
+    backgroundColor: '#FFE0B2',
+    borderRadius: 16,
+    padding: 14,
+    marginHorizontal: 8,
+    marginVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 4,
   },
 });

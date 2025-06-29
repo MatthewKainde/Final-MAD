@@ -1,14 +1,16 @@
-import {StyleSheet, Text, View, TextInput as Input} from 'react-native';
 import React from 'react';
+import { TextInput as RNTextInput, View, Text, StyleSheet, TextInputProps } from 'react-native';
 
-const TextInput = ({text, placeholder}) => {
-  return (
-    <View>
-      <Text style={styles.label}>{text}</Text>
-      <Input placeholder={placeholder} style={styles.input} />
-    </View>
-  );
-};
+const TextInput = ({ text, placeholder, style, ...rest }: { text?: string; placeholder?: string; style?: any } & TextInputProps) => (
+  <View style={styles.container}>
+    {text && <Text style={styles.label}>{text}</Text>}
+    <RNTextInput
+      placeholder={placeholder}
+      style={[styles.input, style]}
+      {...rest}
+    />
+  </View>
+);
 
 export default TextInput;
 
@@ -26,5 +28,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
     padding: 10,
+  },
+  container: {
+    // Add any necessary container styles here
   },
 });

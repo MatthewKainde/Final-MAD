@@ -15,7 +15,12 @@ const BottomBar: React.FC<BottomBarProps> = ({ buttons, style }) => {
   return (
     <View style={[styles.container, style]}>
       {buttons.map((btn, idx) => (
-        <MiniButton key={idx} icon={btn.icon} onPress={btn.onPress} style={btn.style} />
+        <MiniButton
+          key={idx}
+          icon={React.isValidElement(btn.icon) ? React.cloneElement(btn.icon, { width: 40, height: 40 }) : btn.icon}
+          onPress={btn.onPress}
+          style={btn.style}
+        />
       ))}
     </View>
   );

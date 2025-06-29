@@ -9,6 +9,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import Gap from '../../components/atoms/Gap';
 import BottomBar from '../../components/molecules/BottomBar';
@@ -17,10 +18,10 @@ import IconHome from '../../assets/icons/homebutton.svg';
 import IconBell from '../../assets/icons/notificationbutton.svg';
 import IconMenu from '../../assets/icons/historybutton.svg';
 import IconUser from '../../assets/icons/profilebutton.svg';
-import IconBack from '../../assets/icons/back-arrow.svg';
+import IconBack from '../../assets/icons/arrow-back.svg';
 
-import Cookies from '../../assets/images/Cookies.png';
-import LemonMeringue from '../../assets/images/Lemon.png';
+import Cookies from '../../assets/images/Cookies.svg';
+import LemonMeringue from '../../assets/images/Lemon.svg';
 
 const orderHistory = [
   {
@@ -57,14 +58,25 @@ const orderHistory = [
   },
 ];
 
-const OrderHistory = () => {
+type RootStackParamList = {
+  Home: undefined;
+  FoodsMenu: undefined;
+  DrinkMenu: undefined;
+  PastriesMenu: undefined;
+  OrderHistory: undefined;
+  Profile: undefined;
+};
+
+type OrderHistoryProps = NativeStackScreenProps<RootStackParamList, 'OrderHistory'>;
+
+const OrderHistory: React.FC<OrderHistoryProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor="#FFF8F0" barStyle="dark-content" />
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <IconBack width={24} height={24} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Order History</Text>
@@ -81,7 +93,9 @@ const OrderHistory = () => {
                 <Text style={styles.dateText}>{item.items}</Text>
               </View>
               <View style={styles.cardContent}>
-                <Image source={item.image} style={styles.image} />
+                <View style={styles.image}>
+                  <item.image width={70} height={70} style={{ borderRadius: 8 }} />
+                </View>
                 <View>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.price}>{item.price}</Text>
@@ -97,10 +111,10 @@ const OrderHistory = () => {
         {/* Bottom Bar */}
         <BottomBar
           buttons={[
-            { icon: <IconHome width={32} height={32} />, onPress: () => {} },
+            { icon: <IconHome width={32} height={32} />, onPress: () => navigation.navigate('Home') },
             { icon: <IconBell width={32} height={32} />, onPress: () => {} },
-            { icon: <IconMenu width={32} height={32} />, onPress: () => {} },
-            { icon: <IconUser width={32} height={32} />, onPress: () => {} },
+            { icon: <IconMenu width={32} height={32} />, onPress: () => navigation.navigate('OrderHistory') },
+            { icon: <IconUser width={32} height={32} />, onPress: () => navigation.navigate('Profile') },
           ]}
         />
       </View>

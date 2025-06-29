@@ -1,17 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface FoodCardProps {
-  image: ImageSourcePropType;
+  image: React.ReactNode;
   name: string;
   price: string;
   onPressAdd: () => void;
+  onImagePress?: () => void;
 }
 
-const FoodCard: React.FC<FoodCardProps> = ({ image, name, price, onPressAdd }) => {
+const FoodCard: React.FC<FoodCardProps> = ({ image, name, price, onPressAdd, onImagePress }) => {
   return (
     <View style={styles.card}>
-      <Image source={image} style={styles.foodImage} />
+      <TouchableOpacity style={styles.foodImageTouchable} onPress={onImagePress} activeOpacity={0.8}>
+        <View style={styles.foodImage}>{image}</View>
+      </TouchableOpacity>
       <View style={styles.textContainer}>
         <Text style={styles.foodName}>{name}</Text>
         <Text style={styles.foodPrice}>{price}</Text>
@@ -55,18 +58,25 @@ const styles = StyleSheet.create({
     color: '#3E2723',
     marginTop: 4,
   },
+  foodImageTouchable: {
+    marginRight: 12,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
   plusButton: {
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#C86A3B',
+    backgroundColor: '#8C6655',
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 8,
   },
   plusText: {
-    color: '#FFFFFF',
+    color: '#FFF',
     fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 28,
+    textAlign: 'center',
   },
 });
