@@ -1,8 +1,15 @@
 import { StyleSheet, View, Text } from 'react-native';
-import React from 'react';
-import Logo from '../../assets/logo.svg';
+import React, { useEffect } from 'react';
+import Logo from '../../assets/icons/logo.svg';
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('SignIn');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.centerContent}>

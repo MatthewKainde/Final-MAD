@@ -1,5 +1,7 @@
+import BottomBar from './BottomBar'; 
+import FoodCard from './FoodCard'; 
 import Header from './Header';
 import TextInput from './TextInput';
-import BottomBar from './BottomBar';
 
-export {Header, TextInput, BottomBar};
+
+export { BottomBar, FoodCard, Header, TextInput };

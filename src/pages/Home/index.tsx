@@ -1,39 +1,38 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
 import MenuButton from '../../components/atoms/MenuButton';
 import BottomBar from '../../components/molecules/BottomBar';
 import Gap from '../../components/atoms/Gap';
 
-// Correct SVG imports
-import BurgerImage from '../../assets/welcomeburger.svg';
-import IconHome from '../../assets/homebutton.svg';
-import IconBell from '../../assets/notificationbutton.svg';
-import IconMenu from '../../assets/historybutton.svg';
-import IconUser from '../../assets/profilebutton.svg';
-import IconFoods from '../../assets/foods.svg';
-import IconDrinks from '../../assets/drinks.svg';
-import IconPastries from '../../assets/pastries.svg';
-
-const screenWidth = Dimensions.get('window').width;
+import { wBurger as WBurger } from '../../assets/images';
+import IconHome from '../../assets/icons/homebutton.svg';
+import IconBell from '../../assets/icons/notificationbutton.svg';
+import IconMenu from '../../assets/icons/historybutton.svg';
+import IconUser from '../../assets/icons/profilebutton.svg';
+import IconFoods from '../../assets/icons/foods.svg';
+import IconDrinks from '../../assets/icons/drinks.svg';
+import IconPastries from '../../assets/icons/pastries.svg';
 
 const Home = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={styles.imageContainer}>
-            <BurgerImage width={screenWidth} height={200} style={styles.burgerImage} />
-          </View>
-          <View style={styles.welcomeCard}>
-            <Text style={styles.welcomeText}>Welcome, Customer</Text>
-          </View>
-          <Gap height={16} />
-          <View style={styles.menuRow}>
-            <MenuButton icon={<IconFoods width={48} height={48} />} label="Foods" onPress={() => {}} />
-            <MenuButton icon={<IconDrinks width={48} height={48} />} label="Drinks" onPress={() => {}} />
-            <MenuButton icon={<IconPastries width={48} height={48} />} label="Pastries" onPress={() => {}} />
+          <WBurger style={styles.burgerImage} />
+
+          <View style={styles.contentContainer}>
+            <View style={styles.welcomeCard}>
+              <Text style={styles.welcomeText}>Welcome, Customer</Text>
+            </View>
+            <Gap height={24} />
+            <View style={styles.menuRow}>
+              <MenuButton icon={<IconFoods width={48} height={48} />} label="Foods" onPress={() => {}} />
+              <MenuButton icon={<IconDrinks width={48} height={48} />} label="Drinks" onPress={() => {}} />
+              <MenuButton icon={<IconPastries width={48} height={48} />} label="Pastries" onPress={() => {}} />
+            </View>
           </View>
         </ScrollView>
+
         <BottomBar
           buttons={[
             { icon: <IconHome width={32} height={32} />, onPress: () => {} },
@@ -41,7 +40,6 @@ const Home = () => {
             { icon: <IconMenu width={32} height={32} />, onPress: () => {} },
             { icon: <IconUser width={32} height={32} />, onPress: () => {} },
           ]}
-          style={styles.bottomBar}
         />
       </View>
     </SafeAreaView>
@@ -61,48 +59,37 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   scrollContent: {
-    flexGrow: 1,
-    alignItems: 'center',
-    paddingTop: 12,
-    paddingBottom: 24,
-  },
-  imageContainer: {
-    width: '100%',
-    marginBottom: 8,
+    paddingBottom: 100,
   },
   burgerImage: {
     width: '100%',
-    borderRadius: 16,
-    overflow: 'hidden',
+    height: 250,
+    resizeMode: 'cover',
+  },
+  contentContainer: {
+    paddingHorizontal: 24,
   },
   welcomeCard: {
     backgroundColor: '#FFF8F0',
     borderRadius: 16,
-    padding: 18,
-    marginHorizontal: 24,
-    marginBottom: 12,
-    alignSelf: 'stretch',
-    elevation: 2,
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    marginTop: -40,
+    marginHorizontal: 16,
+    elevation: 5,
     shadowColor: '#000',
-    shadowOpacity: 0.06,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
   },
   welcomeText: {
     fontFamily: 'Poppins-Medium',
-    fontSize: 18,
+    fontSize: 16,
     color: '#3E2723',
   },
   menuRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 12,
-    marginTop: 8,
-  },
-  bottomBar: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 });
