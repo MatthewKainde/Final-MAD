@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Button, Gap } from '../../components/atoms';
 import CheckLogo from '../../assets/images/CheckLogo.svg';   // ✔ logo centang
+import { useNavigation } from '@react-navigation/native';
 
 
 const Confirmation = () => {
-  
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -14,12 +16,18 @@ const Confirmation = () => {
         <Gap height={36} />
 
         <Text style={styles.heading}>We're on it !!</Text>
-        <Text style={styles.subHeading}>Sit tight your order{'
-'}is coming</Text>
+        <Text style={styles.subHeading}>
+          Sit tight your order{"\n"}is coming
+        </Text>
 
         <Gap height={56} />
 
-        <Button text="Return to Home"  />
+        <Button
+          text="Return to Home"
+          onPress={() => navigation.navigate('Home')}
+          color="#8C6655"
+          buttonColor="#F4E8E1"
+        />
       </View>
     </View>
   );
@@ -28,42 +36,36 @@ const Confirmation = () => {
 export default Confirmation;
 
 const styles = StyleSheet.create({
-  /* area cokelat di kiri & kanan */
   container: {
     flex: 1,
-    backgroundColor: '#8C6655',      // warna cokelat tua
-    paddingVertical: 20,
+    backgroundColor: '#8C6655',
     paddingHorizontal: 12,
   },
 
-  /* "kartu" krem di tengah */
   card: {
     flex: 1,
-    backgroundColor: '#F4E8E1',      // warna krem muda
+    backgroundColor: '#F4E8E1',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
-  /* ikon centang */
   checkLogo: {
     width: 160,
     height: 160,
     resizeMode: 'contain',
   },
 
-  /* "We're on it !!" */
   heading: {
     fontSize: 24,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Anton-Regular',
     color: '#8C6655',
     textAlign: 'center',
   },
 
-  /* "Sit tight your order is coming" */
   subHeading: {
     fontSize: 24,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Anton-Regular',
     color: '#8C6655',
     textAlign: 'center',
     lineHeight: 32,

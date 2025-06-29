@@ -14,13 +14,15 @@ const SignIn = ({ navigation }) => {
         <Gap height={32} />
         <Text style={styles.label}>Email Address</Text>
         <TextInput
+          style={styles.input}
           placeholder="Enter your email address"
           value={email}
           onChangeText={setEmail}
         />
-        <Gap height={20} />
+        <Gap height={24} />
         <Text style={styles.label}>Password</Text>
         <TextInput
+          style={styles.input}
           placeholder="Enter your password"
           value={password}
           onChangeText={setPassword}
@@ -55,8 +57,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'Poppins-Regular',
-    fontSize: 16,
-    marginBottom: 6,
+    fontSize: 18,
     color: '#222',
+    marginBottom: 0,
+  },
+  input: {
+    marginTop: 2,
   },
 });
