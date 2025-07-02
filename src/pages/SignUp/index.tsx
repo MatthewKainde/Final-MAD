@@ -9,19 +9,53 @@ import {
 import { NullPhoto } from '../../assets/images';
 import { Button, Gap } from '../../components/atoms';
 import { Header, TextInput } from '../../components/molecules';
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import { launchCamera } from 'react-native-image-picker';
 import { showMessage } from 'react-native-flash-message';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref, set } from 'firebase/database';
+
+import { auth, db } from '../../config/Firebase'; // ✅ pastikan path sesuai
 
 const SignUp = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [based64, setbased64] = useState('');
+  const [base64, setBase64] = useState('');
   const [photoUri, setPhotoUri] = useState(null);
 
   const registerNewUser = () => {
-    console.log({ fullName, email, password, based64 });
-    navigation.replace('Home');
+    if (!fullName || !email || !password) {
+      showMessage({
+        message: 'Semua field wajib diisi!',
+        type: 'danger',
+      });
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+
+        // Simpan data user ke Realtime Database
+        set(ref(db, 'users/' + user.uid), {
+          fullName: fullName,
+          email: email,
+          photo: base64,
+        });
+
+        showMessage({
+          message: 'Akun berhasil didaftarkan!',
+          type: 'success',
+        });
+
+        navigation.navigate('SignIn');
+      })
+      .catch(error => {
+        showMessage({
+          message: error.message,
+          type: 'danger',
+        });
+      });
   };
 
   const getImage = async () => {
@@ -32,17 +66,18 @@ const SignUp = ({ navigation }) => {
       includeBase64: true,
       mediaType: 'photo',
     });
+
     if (result.didCancel) {
       showMessage({
         message: 'Ambil foto dibatalkan',
         type: 'danger',
       });
       setPhotoUri(null);
-    } else {
+    } else if (result.assets && result.assets.length > 0) {
       const data = result.assets[0];
-      const photoBased64 = `data:${data.type};base64,${data.base64}`;
-      setbased64(photoBased64);
-      setPhotoUri(photoBased64);
+      const base64Photo = `data:${data.type};base64,${data.base64}`;
+      setBase64(base64Photo);
+      setPhotoUri(base64Photo);
     }
   };
 
@@ -69,20 +104,20 @@ const SignUp = ({ navigation }) => {
         <TextInput
           text="Full Name"
           placeholder="Enter your full name"
-          onChangeText={e => setFullName(e)}
+          onChangeText={setFullName}
         />
         <Gap height={26} />
         <TextInput
           text="Email Address"
           placeholder="Enter your email address"
-          onChangeText={e => setEmail(e)}
+          onChangeText={setEmail}
         />
         <Gap height={16} />
         <TextInput
           text="Password"
           placeholder="Enter your password"
-          secureTextEntry={true}
-          onChangeText={e => setPassword(e)}
+          secureTextEntry
+          onChangeText={setPassword}
         />
         <Gap height={24} />
         <Button text="Continue" onPress={registerNewUser} />
@@ -112,7 +147,7 @@ const styles = StyleSheet.create({
     borderColor: '#8D92A3',
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderRadius: 55, // replaced 110 / 2 for clarity
+    borderRadius: 55,
     justifyContent: 'center',
     alignItems: 'center',
   },
