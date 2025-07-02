@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,18 @@ import {
   SafeAreaView,
   TouchableOpacity,
   StatusBar,
+  Image,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { getAuth } from 'firebase/auth';
+import { ref, onValue } from 'firebase/database';
 
 import { Gap } from '../../components/atoms';
 import { IconBack } from '../../assets/icons';
 import { ProfileImage } from '../../assets/images';
 import BottomBar from '../../components/molecules/BottomBar';
 import { IconHome, IconBell, IconMenu, IconUser } from '../../assets/icons';
+import { db } from '../../config/Firebase';
 
 type RootStackParamList = {
   Home: undefined;
@@ -28,6 +32,27 @@ type RootStackParamList = {
 type ProfileProps = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
 const Profile: React.FC<ProfileProps> = ({ navigation }) => {
+  const [userData, setUserData] = useState<{ fullName: string; photo: string | null }>({
+    fullName: '',
+    photo: null,
+  });
+
+  useEffect(() => {
+    const currentUser = getAuth().currentUser;
+    if (currentUser) {
+      const userRef = ref(db, 'users/' + currentUser.uid);
+      onValue(userRef, snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          setUserData({
+            fullName: data.fullName,
+            photo: data.photo || null,
+          });
+        }
+      });
+    }
+  }, []);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar backgroundColor="#FFFFFF" barStyle="dark-content" />
@@ -41,12 +66,19 @@ const Profile: React.FC<ProfileProps> = ({ navigation }) => {
         <Gap height={44} />
         <View style={styles.content}>
           <View style={styles.profileContainer}>
-            <ProfileImage style={styles.avatar} />
+            {userData.photo ? (
+              <Image source={{ uri: userData.photo }} style={styles.avatar} />
+            ) : (
+              <ProfileImage style={styles.avatar} />
+            )}
             <Gap height={16} />
-            <Text style={styles.name}>User</Text>
+            <Text style={styles.name}>{userData.fullName || 'User'}</Text>
           </View>
           <Gap height={37} />
-          <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={() => navigation.navigate('OrderHistory')}>
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('OrderHistory')}>
             <Text style={styles.buttonText}>Order History</Text>
           </TouchableOpacity>
           <Gap height={37} />
@@ -117,10 +149,9 @@ const styles = StyleSheet.create({
     color: '#020202',
     marginTop: 16,
   },
-
   button: {
     height: 61,
-    width: '90%', 
+    width: '90%',
     borderRadius: 30.5,
     alignItems: 'center',
     justifyContent: 'center',
